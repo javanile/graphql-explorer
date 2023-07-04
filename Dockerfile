@@ -6,9 +6,16 @@ COPY package.json yarn.lock /app/
 
 RUN yarn install
 
+COPY dist /app/dist
 COPY src /app/src
 COPY public /app/public
 
-RUN pwd && ls -la  && yarn build
+RUN pwd && ls -la && yarn build
+
+RUN ls /app/dist && sed 's/localhost/0.0.0.0/' -i /app/dist/index.js
+
+WORKDIR /app/dist
 
 EXPOSE 5677
+
+ENTRYPOINT ["yarn", "start"]
