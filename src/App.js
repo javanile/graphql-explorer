@@ -22,7 +22,8 @@ type State = {
   schema: ?GraphQLSchema,
   query: string,
   explorerIsOpen: boolean,
-  url:string
+  url:string,
+  token:string
 };
 
 type Props = {
@@ -30,6 +31,7 @@ type Props = {
 };
 
 var savedUrl = localStorage.getItem("url") || "http://localhost:8888/graphql"
+var savedToken = localStorage.getItem("token") || ""
 
 class App extends Component<Props, State> {
   _graphiql: GraphiQL;
@@ -37,17 +39,23 @@ class App extends Component<Props, State> {
     schema: null, 
     query: DEFAULT_QUERY, 
     explorerIsOpen: true, 
-    url:savedUrl};
+    url:savedUrl,
+    token:savedToken
+  };
 
   fetcher(params: Object): Object {
+    let headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    };
+    if (savedToken) {
+      headers["Authorization"] = "Bearer " + savedToken
+    }
     return fetch(
       savedUrl,
       {
         method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
+        headers: headers,
         body: JSON.stringify(params)
       }
     )
@@ -148,6 +156,11 @@ class App extends Component<Props, State> {
     window.location.reload()
   }
 
+  _handleSetToken = () => {
+    localStorage.setItem("token", this.state.token)
+    window.location.reload()
+  }
+
   render() {
     const { query, schema } = this.state;
     return (
@@ -187,13 +200,22 @@ class App extends Component<Props, State> {
               label="Explorer"
               title="Toggle Explorer"
             />
-            <span className="url-input-wrap">
-              GraphQL API:&nbsp;
-              <input className="url-input" type="text" onChange={(ev) => this.setState({url:ev.target.value})} value={this.state.url} />
+            <span className="custom-input-wrap">
+              GraphQL API:
+              <input className="custom-input" type="text" onChange={(ev) => this.setState({url:ev.target.value})} value={this.state.url} />
               <GraphiQL.Button
                 onClick={this._handleSetUrl}
                 label="Set URL"
                 title="Set URL"
+              />
+            </span>
+            <span className="custom-input-wrap">
+              Token:
+              <input className="custom-input" type="text" onChange={(ev) => this.setState({token:ev.target.value})} value={this.state.token} />
+              <GraphiQL.Button
+                  onClick={this._handleSetToken}
+                  label="Set Token"
+                  title="Set Token"
               />
             </span>
           </GraphiQL.Toolbar>
