@@ -5,7 +5,7 @@ services:
     build: .
     environment:
       - GRAPHQL_ENDPOINT=http://localhost:5677/graphql
-      - GRAPHQL_TOKEN_URL=
-      - GRAPHQL_TOKEN_JSON_PATH=
+      - ACCESS_TOKEN_URL=/token.json
+      - ACCESS_TOKEN_JSON_PATH=data.access_token
     ports:
       - 5677:5677

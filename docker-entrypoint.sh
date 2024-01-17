@@ -10,8 +10,11 @@ fi
 
 ## Update env.json
 {
-  echo "\"GRAPHQL_URL\": \"${GRAPHQL_URL}\","
-  echo "\"b\": \"${B}\""
+  echo "{"
+  echo "  \"GRAPHQL_ENDPOINT\": \"${GRAPHQL_ENDPOINT}\","
+  echo "  \"ACCESS_TOKEN_URL\": \"${ACCESS_TOKEN_URL}\","
+  echo "  \"ACCESS_TOKEN_JSON_PATH\": \"${ACCESS_TOKEN_JSON_PATH}\""
+  echo "}"
 } > /app/dist/build/env.json
 
 yarn start
