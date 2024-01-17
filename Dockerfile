@@ -18,4 +18,6 @@ WORKDIR /app/dist
 
 EXPOSE 5677
 
-ENTRYPOINT ["yarn", "start"]
+COPY docker-entrypoint.sh /usr/local/bin/
+
+ENTRYPOINT ["docker-entrypoint.sh"]

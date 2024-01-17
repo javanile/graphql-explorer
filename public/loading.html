@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>React App</title>
+</head>
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<script>
+    function done() {
+        localStorage.setItem("loading", true)
+        window.location.href = "/"
+    }
+
+    const url = localStorage.getItem("url")
+    const token = localStorage.getItem("token")
+
+    console.log(url, token)
+
+    setTimeout(done, 10000)
+</script>
+</body>
+</html>

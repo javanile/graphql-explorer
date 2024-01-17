@@ -1,6 +1,7 @@
 .PHONY: build
 
 build:
+	@chmod +x docker-entrypoint.sh
 	@docker compose build
 
 start: build

@@ -3,5 +3,9 @@ version: "3"
 services:
   graphql-explorer:
     build: .
+    environment:
+      - GRAPHQL_ENDPOINT=http://localhost:5677/graphql
+      - GRAPHQL_TOKEN_URL=
+      - GRAPHQL_TOKEN_JSON_PATH=
     ports:
       - 5677:5677
