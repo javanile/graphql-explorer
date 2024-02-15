@@ -13,5 +13,5 @@ release:
 	@git commit -am "New release!"
 	@git push
 	@docker login -u yafb
-	@docker build -t "javanile/graphql-explorer:latest" .
-	@docker push "javanile/graphql-explorer:latest"
+	@docker build -t "javanile/graphql-explorer:v1" .
+	@docker push "javanile/graphql-explorer:v1"
