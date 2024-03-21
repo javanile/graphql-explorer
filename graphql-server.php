@@ -17,14 +17,28 @@ header('Content-Type: application/json');
 
 require_once '../vendor/autoload.php';
 
+$stringValue = new ObjectType([
+    'name' => 'StringValue',
+    'fields' => [
+        'stringValue' => Type::string(),
+    ],
+]);
+
+$intValue = new ObjectType([
+    'name' => 'IntValue',
+    'fields' => [
+        'intValue' => Type::int(),
+    ],
+]);
+
 $searchResultType = new UnionType([
     'name' => 'SearchResult',
     'types' => [
-        Type::int(),
-        Type::string(),
+        $stringValue,
+        $intValue,
     ],
-    'resolveType' => function ($value) {
-        return is_string($value) ? Type::string() : Type::int();
+    'resolveType' => function ($value) use ($stringValue, $intValue) {
+        return is_string($value) ? $stringValue : $intValue;
     },
 ]);
 
@@ -45,7 +59,11 @@ $queryType = new ObjectType([
         'testUnion' => [
             'type' => $searchResultType,
             'resolve' => function () {
-                return 'test';
+                return [
+                    'intValue' => [
+                        'value' => 'test'
+                    ],
+                ];
             },
         ],
     ],
