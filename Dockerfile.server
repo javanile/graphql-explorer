@@ -4,4 +4,4 @@ RUN apt-get -y update && apt-get -y install git && apt-get clean && rm -rf /var/
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN composer global require webonyx/graphql-php 0.12.6
+RUN cd /var/www && composer require webonyx/graphql-php 0.12.6

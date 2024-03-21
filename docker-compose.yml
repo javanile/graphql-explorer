@@ -4,7 +4,7 @@ services:
   graphql-explorer:
     build: .
     environment:
-      - GRAPHQL_ENDPOINT=http://localhost:5677/graphql
+      - GRAPHQL_ENDPOINT=http://localhost:8080/graphql-server.php
       - ACCESS_TOKEN_URL=/token.json
       - ACCESS_TOKEN_JSON_PATH=data.access_token
     ports:
@@ -24,5 +24,5 @@ services:
     ports:
       - 8080:80
     volumes:
-      - .:/var/www
+      - .:/var/www/html
 
