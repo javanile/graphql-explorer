@@ -2,14 +2,22 @@
 
 build:
 	@chmod +x docker-entrypoint.sh
-	@docker compose build
+	@docker compose build -q graphql-explorer
 
 build-dist:
 	@docker compose build -q build-dist
-	@docker compose run --rm build-dist sh -c "npm install && npm run build"
+	@docker compose run --rm build-dist sh -c "yarn install && npm run build"
+
+build-server:
+	@docker compose build graphql-server
 
 start: build
-	@docker compose up
+	@docker compose up -d --force-recreate graphql-explorer graphql-server
+	@echo
+	@echo "Open this page in your browser: <http://localhost:5677>"
+
+stop:
+	@docker compose down
 
 release:
 	@date > tests/RELEASE
