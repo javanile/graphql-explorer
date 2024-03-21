@@ -6046,10 +6046,10 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.11.tgz#4183e4e8bf08bb6e05bbb2f7d2e0c8f712ca40e3"
   integrity sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==
 
-graphiql-explorer@^0.4.2:
-  version "0.4.6"
-  resolved "https://registry.yarnpkg.com/graphiql-explorer/-/graphiql-explorer-0.4.6.tgz#501b0b27d154efbdd224b9b0d528cfb6917ebda8"
-  integrity sha512-xnIArsOzWdGEz/z4I3r4XIiukVmpRWu64co5IxaqQ7pK7Ar0l00dPmOvWdRF/cBTMQDBbkMpKDc2yxwUebIjOg==
+graphiql-explorer@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/graphiql-explorer/-/graphiql-explorer-0.9.0.tgz#25f6b990bfc3e04e88c0cf419e28d12abe2c4fbe"
+  integrity sha512-fZC/wsuatqiQDO2otchxriFO0LaWIo/ovF/CQJ1yOudmY0P7pzDiP+l9CEHUiWbizk3e99x6DQG4XG1VxA+d6A==
 
 graphiql@^0.12.0:
   version "0.12.0"
@@ -6140,7 +6140,7 @@ graphql-ws@5.12.1:
   resolved "https://registry.yarnpkg.com/graphql-ws/-/graphql-ws-5.12.1.tgz#c62d5ac54dbd409cc6520b0b39de374b3d59d0dd"
   integrity sha512-umt4f5NnMK46ChM2coO36PTFhHouBrK9stWWBczERguwYrGnPNxJ9dimU6IyOBfOkC6Izhkg4H8+F51W/8CYDg==
 
-graphql@^14.1.1:
+graphql@^14.7.0:
   version "14.7.0"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.7.0.tgz#7fa79a80a69be4a31c27dda824dc04dac2035a72"
   integrity sha512-l0xWZpoPKpppFzMfvVyFmp9vLN7w/ZZJPefUicMCepfJeQ8sMcztloGYY9DfjVPo6tIUDzU5Hw3MUbIjj9AVVA==

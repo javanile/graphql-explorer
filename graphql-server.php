@@ -28,7 +28,7 @@ $searchResultType = new UnionType([
     },
 ]);
 
-$searchResultType = Type::string();
+//$searchResultType = Type::string();
 
 $queryType = new ObjectType([
     'name' => 'Query',
