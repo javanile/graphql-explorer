@@ -9,3 +9,10 @@ services:
       - ACCESS_TOKEN_JSON_PATH=data.access_token
     ports:
       - 5677:5677
+
+  build-dist:
+    build:
+      context: .
+      dockerfile: Dockerfile.dist
+    volumes:
+      - .:/app

@@ -1,0 +1,17 @@
+{
+  "name": "graphiql-explorer",
+  "version": "1.0.0",
+  "description": "Launches GraphiQL",
+  "main": "index.js",
+  "author": "Zach Erkkila",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "start-open-browser" : "node index.js --open"
+  },
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "express": "^4.17.1",
+    "open": "^7.0.3"
+  }
+}

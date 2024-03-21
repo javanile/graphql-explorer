@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>React App</title>
+</head>
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<script>
+    function done() {
+        localStorage.setItem("loading", true)
+        window.location.href = "/"
+    }
+
+    function extractAccessToken(json, path) {
+        let value = json;
+        const keys = path.split('.');
+
+        for (const key of keys) {
+            if (value && value.hasOwnProperty(key)) {
+                value = value[key];
+            } else {
+                return undefined;
+            }
+        }
+
+        return value;
+    }
+
+    const url = localStorage.getItem("url")
+    const token = localStorage.getItem("token")
+
+    fetch("/env.json")
+        .then(response => response.json())
+        .then(env => {
+            console.log("ENV:", env)
+            if (!url && env["GRAPHQL_ENDPOINT"]) {
+                localStorage.setItem("url", env["GRAPHQL_ENDPOINT"])
+            }
+            if (!token && env["ACCESS_TOKEN_URL"]) {
+                fetch(env["ACCESS_TOKEN_URL"])
+                    .then(response => response.json())
+                    .then(token => {
+                        const accessToken = extractAccessToken(token, env["ACCESS_TOKEN_JSON_PATH"] || "access_token")
+                        if (accessToken) {
+                            localStorage.setItem("token", accessToken);
+                        }
+                        done()
+                    })
+                    .catch(console.error)
+            } else {
+                done()
+            }
+        })
+        .catch(console.error)
+
+    setTimeout(done, 10000)
+</script>
+</body>
+</html>
