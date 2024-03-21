@@ -23,7 +23,7 @@ $searchResultType = new UnionType([
         Type::int(),
         Type::string(),
     ],
-    'resolveType' => function ($value): ObjectType {
+    'resolveType' => function ($value) {
         return is_string($value) ? Type::string() : Type::int();
     },
 ]);
