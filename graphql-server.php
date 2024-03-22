@@ -17,17 +17,54 @@ header('Content-Type: application/json');
 
 require_once '../vendor/autoload.php';
 
+$postType = new ObjectType([
+    'name' => 'Post',
+    'fields' => [
+        'id' => Type::id(),
+        'title' => Type::string(),
+        'content' => Type::string(),
+        //'campo' => Type::string(),
+    ],
+]);
+
+$commentType = new ObjectType([
+    'name' => 'Comment',
+    'fields' => [
+        'id' => Type::int(),
+        'text' => Type::string(),
+        //'campo' => Type::int(),
+    ],
+]);
+
+
+$postCommentType = new UnionType([
+    'name' => 'SearchResult',
+    'types' => [
+        $postType,
+        $commentType,
+    ],
+    'resolveType' => function ($value) use ($commentType, $postType) {
+        if (isset($value['text'])) {
+            return $commentType;
+        } else {
+            return $postType;
+        }
+    },
+]);
+
+
+
 $stringValue = new ObjectType([
     'name' => 'StringValue',
     'fields' => [
-        'stringValue' => Type::string(),
+        'value1' => Type::string(),
     ],
 ]);
 
 $intValue = new ObjectType([
     'name' => 'IntValue',
     'fields' => [
-        'intValue' => Type::int(),
+        'value' => Type::int(),
     ],
 ]);
 
@@ -38,7 +75,18 @@ $searchResultType = new UnionType([
         $intValue,
     ],
     'resolveType' => function ($value) use ($stringValue, $intValue) {
-        return is_string($value) ? $stringValue : $intValue;
+        if ($value['value'] > 10 || $value['value1'] > 10) {
+            return $stringValue;
+        } else {
+            return $intValue;
+        }
+    /*
+        if (isset($value['stringValue'])) {
+            return $stringValue;
+        } else {
+            return $intValue;
+        }*/
+        //return is_string($value) ? $stringValue : $intValue;
     },
 ]);
 
@@ -53,19 +101,38 @@ $queryType = new ObjectType([
                 'message' => Type::nonNull(Type::string()),
             ],
             'resolve' => function ($rootValue, array $args): string {
-                return $rootValue['prefix'] . $args['message'];
+                return json_encode(explode('#', "1#2#3"));
             },
         ],
-        'testUnion' => [
-            'type' => $searchResultType,
+        /*'testUnion' => [
+            'type' => Type::listOf($searchResultType),
             'resolve' => function () {
                 return [
-                    'intValue' => [
-                        'value' => 'test'
+                    [
+                        'value' => 1,
                     ],
+                    [
+                        'value1' => 11,
+                    ]
                 ];
             },
-        ],
+        ],*/
+        'ricerca' => [
+            'type' => Type::listOf($postCommentType),
+            'resolve' => function () {
+                return [
+                    [
+                        'id' => 1,
+                        'title' => 'Post 1',
+                        'content' => 'Content 1'
+                    ],
+                    [
+                        'id' => 2,
+                        'text' => 'Comment 1'
+                    ]
+                ];
+            },
+        ]
     ],
 ]);
 
