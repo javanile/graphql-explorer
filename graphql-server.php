@@ -30,7 +30,7 @@ $postType = new ObjectType([
 $commentType = new ObjectType([
     'name' => 'Comment',
     'fields' => [
-        'id' => Type::int(),
+        'id' => Type::id(),
         'text' => Type::string(),
         //'campo' => Type::int(),
     ],
@@ -57,14 +57,16 @@ $postCommentType = new UnionType([
 $stringValue = new ObjectType([
     'name' => 'StringValue',
     'fields' => [
-        'value1' => Type::string(),
+        'rawField' => Type::string(),
+        'toString' => Type::string(),
     ],
 ]);
 
 $intValue = new ObjectType([
     'name' => 'IntValue',
     'fields' => [
-        'value' => Type::int(),
+        'rawField' => Type::string(),
+        'toInt' => Type::int(),
     ],
 ]);
 
@@ -75,18 +77,11 @@ $searchResultType = new UnionType([
         $intValue,
     ],
     'resolveType' => function ($value) use ($stringValue, $intValue) {
-        if ($value['value'] > 10 || $value['value1'] > 10) {
+        if ($value['rawField'] == 'toString') {
             return $stringValue;
         } else {
             return $intValue;
         }
-    /*
-        if (isset($value['stringValue'])) {
-            return $stringValue;
-        } else {
-            return $intValue;
-        }*/
-        //return is_string($value) ? $stringValue : $intValue;
     },
 ]);
 
@@ -104,19 +99,16 @@ $queryType = new ObjectType([
                 return json_encode(explode('#', "1#2#3"));
             },
         ],
-        /*'testUnion' => [
-            'type' => Type::listOf($searchResultType),
+        'testUnion' => [
+            'type' => $searchResultType,
             'resolve' => function () {
                 return [
-                    [
-                        'value' => 1,
-                    ],
-                    [
-                        'value1' => 11,
-                    ]
+                    'rawField' => 'toInt',
+                    'toInt' => '10',
                 ];
             },
-        ],*/
+        ],
+        /*
         'ricerca' => [
             'type' => Type::listOf($postCommentType),
             'resolve' => function () {
@@ -132,7 +124,7 @@ $queryType = new ObjectType([
                     ]
                 ];
             },
-        ]
+        ]*/
     ],
 ]);
 
