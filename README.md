@@ -1,5 +1,12 @@
 ## Enhanced GraphiQL client with the ability to set your Graphql API URL from the UI
 
+DA FARE 
+
+- aggiungere un selettore utenti che permette velocemente di cambiare utente connesso a graphql
+-  con qualcosa di simile - ACCESS_TOKEN_USERS=admin,test1,test2
+- 
+
+
 Based on the example from [OneGraph](https://github.com/OneGraph/graphiql-explorer) but adds a field to manually enter your url. Useful to get the advanced OneGraph explorer for GraphiQL without needing to manually bake it into you project.
 
 ![screenshot](https://raw.githubusercontent.com/zacherkkila/simple-graphiql-explorer/master/screenshots/screenshot.png)
